@@ -68,3 +68,86 @@
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
 
+def add(a, b):
+    return a + b
+ 
+ 
+def subtract(a, b):
+    return a - b
+ 
+ 
+def multiply(a, b):
+    return a * b
+ 
+ 
+def divide(a, b):
+    if b == 0:
+        raise ZeroDivisionError("Cannot divide by zero.")
+    return a / b
+ 
+ 
+def modulus(a, b):
+    if b == 0:
+        raise ZeroDivisionError("Cannot divide by zero.")
+    return a % b
+ 
+ 
+def exponent(a, b):
+    return a ** b
+ 
+ 
+def show_menu():
+    print("============================")
+    print("     SIMPLE CALCULATOR")
+    print("============================")
+    print("1. Addition")
+    print("2. Subtraction")
+    print("3. Multiplication")
+    print("4. Division")
+    print("5. Modulus")
+    print("6. Exponentiation")
+    print("7. Quit")
+ 
+ 
+OPERATIONS = {
+    "1": ("+", add),
+    "2": ("-", subtract),
+    "3": ("*", multiply),
+    "4": ("/", divide),
+    "5": ("%", modulus),
+    "6": ("**", exponent),
+}
+ 
+ 
+def main():
+    while True:
+        show_menu()
+        choice = input("Select an operation (1-7): ")
+ 
+        if choice == "7":
+            print("Goodbye!")
+            break
+ 
+        if choice not in OPERATIONS:
+            print("Error: invalid choice.")
+            continue
+ 
+        symbol, operation_func = OPERATIONS[choice]
+        a = float(input("Enter first number : "))
+        b = float(input("Enter second number: "))
+ 
+        try:
+            result = operation_func(a, b)
+        except ZeroDivisionError as error:
+            print(f"Error: {error}")
+            continue
+ 
+        if choice == "4":
+            result = round(result, 2)
+ 
+        print(f"Result: {a:g} {symbol} {b:g} = {result:g}")
+ 
+ 
+if __name__ == "__main__":
+    main()
+    

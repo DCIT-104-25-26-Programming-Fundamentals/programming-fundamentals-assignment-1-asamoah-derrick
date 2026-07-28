@@ -60,3 +60,118 @@
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
 
+def read_matrix(rows, cols):
+    matrix = []
+    for r in range(rows):
+        row_input = input(f"Enter row {r + 1}: ")
+        values = [float(v) for v in row_input.split()]
+        matrix.append(values)
+    return matrix
+ 
+ 
+def print_matrix(matrix, title="Matrix"):
+    print(f"\n{title}:")
+    for row in matrix:
+        print("  ".join(f"{value:>6g}" for value in row))
+ 
+ 
+def transpose_matrix(matrix):
+    rows = len(matrix)
+    cols = len(matrix[0])
+    result = [[0] * rows for _ in range(cols)]
+ 
+    for i in range(rows):
+        for j in range(cols):
+            result[j][i] = matrix[i][j]
+ 
+    return result
+ 
+ 
+def add_matrices(matrix_a, matrix_b):
+    rows = len(matrix_a)
+    cols = len(matrix_a[0])
+    result = [[0] * cols for _ in range(rows)]
+ 
+    for i in range(rows):
+        for j in range(cols):
+            result[i][j] = matrix_a[i][j] + matrix_b[i][j]
+ 
+    return result
+ 
+ 
+def multiply_matrices(matrix_a, matrix_b):
+    m = len(matrix_a)
+    n = len(matrix_a[0])
+    p = len(matrix_b[0])
+    result = [[0] * p for _ in range(m)]
+ 
+    for i in range(m):
+        for j in range(p):
+            total = 0
+            for k in range(n):
+                total += matrix_a[i][k] * matrix_b[k][j]
+            result[i][j] = total
+ 
+    return result
+ 
+ 
+def part_a_transpose():
+    rows = int(input("Enter number of rows: "))
+    cols = int(input("Enter number of columns: "))
+    matrix = read_matrix(rows, cols)
+ 
+    print_matrix(matrix, "Original Matrix")
+    result = transpose_matrix(matrix)
+    print_matrix(result, "Transposed Matrix")
+ 
+ 
+def part_b_add():
+    rows = int(input("Enter number of rows: "))
+    cols = int(input("Enter number of columns: "))
+ 
+    print("Matrix A:")
+    matrix_a = read_matrix(rows, cols)
+    print("Matrix B:")
+    matrix_b = read_matrix(rows, cols)
+ 
+    print_matrix(matrix_a, "Matrix A")
+    print_matrix(matrix_b, "Matrix B")
+    result = add_matrices(matrix_a, matrix_b)
+    print_matrix(result, "A + B")
+ 
+ 
+def part_c_multiply():
+    m = int(input("Enter rows of Matrix A: "))
+    n = int(input("Enter columns of Matrix A (= rows of Matrix B): "))
+    p = int(input("Enter columns of Matrix B: "))
+ 
+    print("Matrix A:")
+    matrix_a = read_matrix(m, n)
+    print("Matrix B:")
+    matrix_b = read_matrix(n, p)
+ 
+    print_matrix(matrix_a, "Matrix A")
+    print_matrix(matrix_b, "Matrix B")
+    result = multiply_matrices(matrix_a, matrix_b)
+    print_matrix(result, "A x B")
+ 
+ 
+def main():
+    print("1. Transpose a Matrix")
+    print("2. Add Two Matrices")
+    print("3. Multiply Two Matrices")
+    choice = input("Choose an operation (1-3): ")
+ 
+    if choice == "1":
+        part_a_transpose()
+    elif choice == "2":
+        part_b_add()
+    elif choice == "3":
+        part_c_multiply()
+    else:
+        print("Error: invalid choice.")
+ 
+ 
+if __name__ == "__main__":
+    main()
+ 

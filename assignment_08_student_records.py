@@ -90,3 +90,90 @@
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
 
+def show_menu():
+    print("================================")
+    print("   STUDENT RECORD SYSTEM MENU")
+    print("================================")
+    print("1. Add student")
+    print("2. Display all students")
+    print("3. Calculate average score")
+    print("4. Quit")
+ 
+ 
+def calculate_average(scores):
+    return round(sum(scores) / len(scores), 2)
+ 
+ 
+def add_student(students):
+    name = input("Student name: ")
+    student_id = int(input("Student ID: "))
+    num_scores = int(input("How many scores? "))
+ 
+    scores = []
+    for i in range(1, num_scores + 1):
+        score = float(input(f"Enter score {i}: "))
+        scores.append(score)
+ 
+    students.append({"name": name, "id": student_id, "scores": scores})
+    print(f'Student "{name}" added successfully.')
+ 
+ 
+def display_students(students):
+    if len(students) == 0:
+        print("No students have been added yet.")
+        return
+ 
+    print("-" * 50)
+    print(f"{'Name':<15}{'ID':<12}{'Scores':<15}{'Average'}")
+    print("-" * 50)
+ 
+    for student in students:
+        scores_text = ", ".join(str(s) for s in student["scores"])
+        average = calculate_average(student["scores"])
+        print(f"{student['name']:<15}{student['id']:<12}{scores_text:<15}{average}")
+ 
+    print("-" * 50)
+ 
+ 
+def find_student_by_id(students, student_id):
+    for student in students:
+        if student["id"] == student_id:
+            return student
+    return None
+ 
+ 
+def show_average_for_student(students):
+    student_id = int(input("Enter student ID: "))
+    student = find_student_by_id(students, student_id)
+ 
+    if student is None:
+        print("Error: no student found with that ID.")
+        return
+ 
+    average = calculate_average(student["scores"])
+    print(f"{student['name']}'s average score: {average}")
+ 
+ 
+def main():
+    students = []
+ 
+    while True:
+        show_menu()
+        choice = input("Enter your choice (1-4): ")
+ 
+        if choice == "1":
+            add_student(students)
+        elif choice == "2":
+            display_students(students)
+        elif choice == "3":
+            show_average_for_student(students)
+        elif choice == "4":
+            print("Goodbye!")
+            break
+        else:
+            print("Error: invalid choice.")
+ 
+ 
+if __name__ == "__main__":
+    main()
+ 

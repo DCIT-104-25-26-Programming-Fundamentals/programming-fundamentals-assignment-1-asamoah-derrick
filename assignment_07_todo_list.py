@@ -79,3 +79,69 @@
 # YOUR CODE BELOW — remove the # symbols from the scaffold and fill it in
 # =============================================================================
 
+def show_menu():
+    print("============================")
+    print("     TO-DO LIST MENU")
+    print("============================")
+    print("1. Add task")
+    print("2. View tasks")
+    print("3. Delete task")
+    print("4. Quit")
+ 
+ 
+def add_task(tasks):
+    description = input("Enter task: ")
+    tasks.append(description)
+    print(f'Task added: "{description}"')
+ 
+ 
+def view_tasks(tasks):
+    if len(tasks) == 0:
+        print("Your to-do list is empty.")
+        return
+ 
+    print("Your Tasks:")
+    for i, task in enumerate(tasks, start=1):
+        print(f"{i}. {task}")
+ 
+ 
+def delete_task(tasks):
+    if len(tasks) == 0:
+        print("Your to-do list is empty. Nothing to delete.")
+        return
+ 
+    view_tasks(tasks)
+    choice = int(input("Enter task number to delete: "))
+    index = choice - 1
+ 
+    if index < 0 or index >= len(tasks):
+        print("Error: invalid task number.")
+        return
+ 
+    removed = tasks.pop(index)
+    print(f'Task "{removed}" has been removed.')
+ 
+ 
+def main():
+    tasks = []
+ 
+    while True:
+        show_menu()
+        choice = input("Enter your choice (1-4): ")
+ 
+        if choice == "1":
+            add_task(tasks)
+        elif choice == "2":
+            view_tasks(tasks)
+        elif choice == "3":
+            delete_task(tasks)
+        elif choice == "4":
+            print("Goodbye!")
+            break
+        else:
+            print("Error: invalid choice.")
+ 
+ 
+if __name__ == "__main__":
+    main()
+ 
